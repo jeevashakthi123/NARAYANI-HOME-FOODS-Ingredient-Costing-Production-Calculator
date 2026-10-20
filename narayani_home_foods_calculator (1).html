@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NARAYANI HOME FOODS | Ingredient Costing & Production Calculator</title>
+<style>
+:root{--green:#173f32;--green2:#245846;--cream:#f7f4eb;--gold:#c6a45a;--ink:#20312a;--muted:#68776f;--line:#dce4dc;--white:#fff;--red:#a83232;--shadow:0 8px 28px rgba(24,55,43,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}header{background:linear-gradient(120deg,var(--green),#102d24);color:#fff;padding:28px clamp(16px,4vw,48px);border-bottom:4px solid var(--gold)}.brand{max-width:1400px;margin:auto;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand h1{margin:0;font-size:clamp(1.35rem,3vw,2.2rem);letter-spacing:.07em}.brand p{margin:5px 0 0;color:#e5eadf}.brand-mark{width:58px;height:58px;border:1px solid #d6bd7d;border-radius:50%;display:grid;place-items:center;color:#e7d39b;font-size:1.7rem;flex-shrink:0}.wrap{max-width:1400px;margin:24px auto;padding:0 clamp(12px,3vw,32px) 48px}.section{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:clamp(16px,2.5vw,25px);margin-bottom:20px;box-shadow:var(--shadow)}h2{margin:0 0 16px;color:var(--green);font-size:1.15rem}h3{margin:0 0 10px;font-size:1rem;color:var(--green)}.sub{color:var(--muted);margin:-8px 0 16px;font-size:.9rem}.fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.field label{display:block;font-weight:650;font-size:.85rem;margin:0 0 6px}.field input,.field select,.field textarea,td input,textarea{font:inherit;color:var(--ink);width:100%;border:1px solid #cbd7ce;border-radius:8px;padding:10px 11px;background:#fff;min-width:0}.field input:focus,.field textarea:focus,td input:focus{outline:2px solid #a8c5b2;border-color:var(--green2)}.hint{font-size:.78rem;color:var(--muted);margin-top:5px}.mode{background:#f3f7f2;border-left:3px solid var(--gold);padding:10px 13px;border-radius:6px;margin-top:15px;color:#41574a;font-size:.88rem}.toolbar{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}.btn{border:0;border-radius:9px;padding:10px 14px;font:600 .9rem system-ui;cursor:pointer;background:var(--green);color:#fff;transition:filter .15s,transform .15s}.btn:hover{filter:brightness(1.12)}.btn:active{transform:translateY(1px)}.btn.secondary{background:#e9f0e9;color:var(--green);border:1px solid #cbd9ce}.btn.gold{background:#a98232;color:#fff}.btn.danger{background:#fff0ef;color:var(--red);border:1px solid #efc9c6}.btn.small{padding:6px 9px;font-size:.8rem}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;min-width:850px}th{background:var(--green);color:#fff;text-align:left;font-size:.82rem;padding:12px 10px;white-space:nowrap}td{padding:8px 9px;border-bottom:1px solid #e8eee8;vertical-align:middle}tbody tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#fbfcfa}td input{padding:8px;font-size:.9rem}td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.total-row{background:#f0f5ef;font-weight:750}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.metric{border:1px solid var(--line);border-radius:12px;padding:15px;background:linear-gradient(145deg,#fff,#fafbf7);min-width:0}.metric .label{color:var(--muted);font-size:.8rem;min-height:2.3em}.metric .value{font-size:clamp(1.05rem,2vw,1.45rem);font-weight:800;color:var(--green);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.metric .unit{font-size:.75rem;color:var(--muted);margin-top:3px}.notice{padding:10px 12px;border-radius:8px;background:#f7f5e9;border:1px solid #e7dfc0;color:#62532d;font-size:.86rem;margin-top:12px}.error{display:none;background:#fff0ef;color:var(--red);border:1px solid #efc9c6;padding:10px;border-radius:8px;margin:12px 0}.recipe-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.recipe-text{min-height:145px;resize:vertical}.image-preview{display:none;max-width:100%;max-height:260px;object-fit:contain;margin-top:12px;border:1px solid var(--line);border-radius:8px}.parsed-help{font-size:.85rem;color:var(--muted)}.pill{display:inline-block;background:#e8f0e8;color:var(--green);padding:3px 8px;border-radius:99px;font-size:.75rem;font-weight:700}.footer{text-align:center;color:var(--muted);font-size:.8rem;padding:10px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:900px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.recipe-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.fields{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.brand-mark{width:44px;height:44px}.section{border-radius:12px}.btn{flex:1 1 auto}.metric{padding:12px}.metric .label{min-height:2.7em}}
+@media print{body{background:#fff;font-size:10pt}header{padding:14px 20px;background:#173f32!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.wrap{padding:10px;margin:0;max-width:none}.section{box-shadow:none;border:1px solid #bbb;padding:12px;margin-bottom:12px;break-inside:avoid}.toolbar,.no-print,.btn,.error{display:none!important}.fields{grid-template-columns:repeat(4,1fr)}.cards{grid-template-columns:repeat(4,1fr)}.metric{padding:8px}table{min-width:0;font-size:8pt}th,td{padding:5px}td input{border:0;padding:0;background:transparent}.brand h1{font-size:18pt}.recipe-text{min-height:40px} }
+</style>
+</head>
+<body>
+<header><div class="brand"><div><h1>NARAYANI HOME FOODS</h1><p>Ingredient Costing & Production Calculator</p></div><div class="brand-mark" aria-hidden="true">✿</div></div></header>
+<main class="wrap">
+<section class="section">
+<h2>Production Settings</h2>
+<div class="fields">
+<div class="field"><label for="recipeName">Recipe Name</label><input id="recipeName" type="text" value="Sample Spice Mix" placeholder="Enter recipe name"></div>
+<div class="field"><label for="batchMultiplier">Batch Multiplier</label><input id="batchMultiplier" type="number" min="0" step="any" value="1"><div class="hint">Scales all base ingredient weights.</div></div>
+<div class="field"><label for="targetGross">Target Gross Weight (kg)</label><input id="targetGross" type="number" min="0" step="any" placeholder="Optional"><div class="hint">When entered, scales recipe to this weight instead.</div></div>
+<div class="field"><label for="productWeight">Finished Weight per Product (g)</label><input id="productWeight" type="number" min="0" step="any" value="100"></div>
+<div class="field"><label for="lossPercent">Processing Loss (%)</label><input id="lossPercent" type="number" min="0" max="100" step="any" value="0"></div>
+<div class="field"><label for="packCost">Packaging Cost per Product (₹)</label><input id="packCost" type="number" min="0" step="any" value="0"></div>
+<div class="field"><label for="otherCost">Other Production Expenses (₹)</label><input id="otherCost" type="number" min="0" step="any" value="0"></div>
+<div class="field"><label for="grossWeight">Gross Weight for Rate Calculation (kg)</label><input id="grossWeight" type="number" min="0" step="any" value="1"><div class="hint">Used with the recipe's blended ingredient cost per kg to calculate the gross ingredient rate.</div></div>
+</div>
+<div class="mode" id="scaleMode" aria-live="polite">Scaling mode: Batch Multiplier × base recipe.</div>
+<div class="notice">Scaling rule: if Target Gross Weight is greater than zero, it takes priority and the batch multiplier is ignored. This prevents the same recipe quantity being scaled twice. Ingredient weights in the table are the base recipe weights in grams.</div>
+</section>
+
+<section class="section">
+<h2>Ingredient Costing Table</h2>
+<p class="sub">Enter the base recipe quantity and the current supplier rate per kilogram. Costs update automatically.</p>
+<div class="toolbar no-print">
+<button class="btn" id="addRowBtn" type="button">＋ Add Ingredient</button>
+<button class="btn secondary" id="removeRowBtn" type="button">− Remove Last Ingredient</button>
+<button class="btn gold" id="calculateBtn" type="button">Calculate</button>
+<button class="btn secondary" id="loadSampleBtn" type="button">Load Sample Recipe</button>
+</div>
+<div class="error" id="errorBox" role="alert"></div>
+<div class="table-wrap"><table id="ingredientTable">
+<thead><tr><th>S.No.</th><th>Ingredients</th><th>Per KG Weight (g)</th><th>Required Measurement of Ingredient (g)</th><th>Per KG Rate (₹)</th><th>Required Ingredient Cost (₹)</th></tr></thead>
+<tbody id="ingredientBody"></tbody>
+<tfoot><tr class="total-row"><td colspan="2">TOTAL</td><td class="num" id="baseWeightTotal">1,000 g</td><td class="num" id="requiredWeightTotal">1,000 g</td><td>—</td><td class="num" id="ingredientCostTotal">₹0.00</td></tr></tfoot>
+</table></div>
+</section>
+
+<section class="section">
+<h2>Recipe Import — Compare a Recipe with Your Ingredient Rates</h2>
+<p class="sub">Paste a recipe from a document, website, or message. The tool matches ingredient names against the costing table above and estimates the recipe cost using the rates already entered.</p>
+<div class="recipe-grid">
+<div class="field"><label for="recipeText">Recipe text</label><textarea class="recipe-text" id="recipeText" placeholder="Example:
+Coriander - 400 g
+Chilli - 250 g
+Cumin - 150 g
+Pepper - 100 g
+Turmeric - 100 g"></textarea>
+<div class="hint">Supported examples: “Coriander - 400 g”, “Coriander: 400”, or “400 g Coriander”. Use one ingredient per line. Plain numeric quantities are treated as grams.</div>
+<div class="toolbar no-print"><button class="btn" id="compareBtn" type="button">Compare Recipe & Calculate Cost</button><button class="btn secondary" id="clearRecipeBtn" type="button">Clear Recipe</button></div>
+<div id="recipeResults" aria-live="polite"></div>
+</div>
+<div class="field no-print"><label for="recipeImage">Recipe image (reference)</label><input id="recipeImage" type="file" accept="image/*"><img id="imagePreview" class="image-preview" alt="Selected recipe image preview">
+<p class="parsed-help">Image preview is supported offline. Automatic text extraction (OCR) is not included because this file uses no external libraries or online services. For costing, type or paste the image's ingredient names and quantities into the recipe text box, then compare.</p></div>
+</div>
+</section>
+
+<section class="section">
+<h2>Production Summary</h2>
+<div class="cards" id="summaryCards">
+<div class="metric"><div class="label">Total Ingredient Weight</div><div class="value" id="sumWeightG">1,000 g</div><div class="unit">grams</div></div>
+<div class="metric"><div class="label">Total Ingredient Weight</div><div class="value" id="sumWeightKg">1.000 kg</div><div class="unit">kilograms</div></div>
+<div class="metric"><div class="label">Total Ingredient Cost</div><div class="value" id="sumIngredientCost">₹0.00</div><div class="unit">sum of ingredient costs</div></div>
+<div class="metric"><div class="label">Gross Weight</div><div class="value" id="sumGrossKg">1.000 kg</div><div class="unit">scaled recipe weight</div></div>
+<div class="metric"><div class="label">Gross Ingredient Rate</div><div class="value" id="sumGrossRate">₹0.00</div><div class="unit">reference rate × gross kg</div></div>
+<div class="metric"><div class="label">Estimated Finished Weight</div><div class="value" id="sumFinishedG">1,000 g</div><div class="unit">after processing loss</div></div>
+<div class="metric"><div class="label">Number of Complete Products</div><div class="value" id="sumProducts">10</div><div class="unit">whole products only</div></div>
+<div class="metric"><div class="label">Remaining Weight</div><div class="value" id="sumRemainder">0 g</div><div class="unit">after filling complete products</div></div>
+<div class="metric"><div class="label">Packaging Cost Total</div><div class="value" id="sumPackaging">₹0.00</div><div class="unit">per product × complete products</div></div>
+<div class="metric"><div class="label">Other Production Expenses</div><div class="value" id="sumOther">₹0.00</div><div class="unit">entered expenses</div></div>
+<div class="metric"><div class="label">Total Production Cost</div><div class="value" id="sumTotalCost">₹0.00</div><div class="unit">ingredients + packaging + expenses</div></div>
+<div class="metric"><div class="label">Production Cost per Product</div><div class="value" id="sumPerProduct">N/A</div><div class="unit">total cost ÷ complete products</div></div>
+</div>
+<div class="toolbar no-print">
+<button class="btn" id="printBtn" type="button">Print Production Sheet</button>
+<button class="btn secondary" id="csvBtn" type="button">Export CSV</button>
+<button class="btn danger" id="resetBtn" type="button">Reset to Sample</button>
+</div>
+<p class="hint">Your latest recipe and settings are saved locally in this browser. This calculator does not upload your data to a server.</p>
+</section>
+<div class="footer">NARAYANI HOME FOODS · Ingredient costing made simple</div>
+</main>
+<script>
+(function(){
+'use strict';
+const $ = id => document.getElementById(id);
+const body = $('ingredientBody');
+const currency = n => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2,maximumFractionDigits:2}).format(Number.isFinite(n)?n:0);
+const number = (n,d=2) => new Intl.NumberFormat('en-IN',{maximumFractionDigits:d}).format(Number.isFinite(n)?n:0);
+const safeNum = el => { const v = Number(el.value); return el.value.trim()==='' ? 0 : (Number.isFinite(v)&&v>=0 ? v : 0); };
+const sample = [
+ {name:'Coriander',weight:400,rate:180},
+ {name:'Chilli',weight:250,rate:240},
+ {name:'Cumin',weight:150,rate:450},
+ {name:'Pepper',weight:100,rate:700},
+ {name:'Turmeric',weight:100,rate:160}
+];
+let restoring = false;
+function makeCellInput(value, label, type='text', min='0'){
+ const input=document.createElement('input'); input.value=value; input.setAttribute('aria-label',label);
+ input.type=type; if(type==='number'){input.min=min;input.step='any';}
+ input.addEventListener('input',()=>{calculate();saveLocal();}); return input;
+}
+function addRow(data={name:'',weight:0,rate:0}){
+ const tr=document.createElement('tr');
+ const sn=document.createElement('td'); sn.className='num sno'; tr.appendChild(sn);
+ const name=document.createElement('td'); name.appendChild(makeCellInput(data.name,'Ingredient name')); tr.appendChild(name);
+ const weight=document.createElement('td'); weight.appendChild(makeCellInput(data.weight,'Base recipe weight in grams','number')); tr.appendChild(weight);
+ const required=document.createElement('td'); required.className='num required'; required.textContent='0 g'; tr.appendChild(required);
+ const rate=document.createElement('td'); rate.appendChild(makeCellInput(data.rate,'Ingredient rate per kilogram in rupees','number')); tr.appendChild(rate);
+ const cost=document.createElement('td'); cost.className='num cost'; cost.textContent='₹0.00'; tr.appendChild(cost);
+ body.appendChild(tr); renumber(); calculate();
+}
+function renumber(){[...body.rows].forEach((r,i)=>r.querySelector('.sno').textContent=i+1);}
+function getRows(){return [...body.rows].map(tr=>({tr,name:tr.cells[1].querySelector('input').value.trim(),base:Math.max(0,Number(tr.cells[2].querySelector('input').value)||0),rate:Math.max(0,Number(tr.cells[4].querySelector('input').value)||0)}));}
+function getScale(){
+ const target=safeNum($('targetGross'));
+ const base=getRows().reduce((s,r)=>s+r.base,0);
+ if(target>0) return {scale:base>0?(target*1000/base):0,mode:`Scaling mode: Target Gross Weight priority (${number(target,3)} kg). Batch Multiplier is ignored.`,target};
+ const mult=safeNum($('batchMultiplier'));
+ return {scale:mult,mode:`Scaling mode: Batch Multiplier × base recipe (${number(mult,3)}×).`,target:base*mult/1000};
+}
+function calculate(){
+ const rows=getRows(), scaleInfo=getScale(), scale=scaleInfo.scale;
+ $('scaleMode').textContent=scaleInfo.mode;
+ let baseWeight=0,requiredWeight=0,ingredientCost=0;
+ rows.forEach(r=>{
+   const required=r.base*scale, cost=(required/1000)*r.rate;
+   baseWeight+=r.base; requiredWeight+=required; ingredientCost+=cost;
+   r.tr.querySelector('.required').textContent=number(required,2)+' g';
+   r.tr.querySelector('.cost').textContent=currency(cost);
+ });
+ $('baseWeightTotal').textContent=number(baseWeight,2)+' g';
+ $('requiredWeightTotal').textContent=number(requiredWeight,2)+' g';
+ $('ingredientCostTotal').textContent=currency(ingredientCost);
+ const loss=Math.min(100,safeNum($('lossPercent'))), finished=requiredWeight*(1-loss/100);
+ const unit=safeNum($('productWeight')), products=unit>0?Math.floor((finished+1e-9)/unit):0;
+ const remainder=unit>0?Math.max(0,finished-products*unit):finished;
+ const packTotal=safeNum($('packCost'))*products, other=safeNum($('otherCost')), total=ingredientCost+packTotal+other;
+ const grossKg=requiredWeight/1000, grossRate=grossKg>0?(ingredientCost/grossKg)*safeNum($('grossWeight')):0;
+ $('sumWeightG').textContent=number(requiredWeight,2)+' g';
+ $('sumWeightKg').textContent=number(requiredWeight/1000,3)+' kg';
+ $('sumIngredientCost').textContent=currency(ingredientCost);
+ $('sumGrossKg').textContent=number(grossKg,3)+' kg';
+ $('sumGrossRate').textContent=currency(grossRate);
+ $('sumFinishedG').textContent=number(finished,2)+' g';
+ $('sumProducts').textContent=number(products,0);
+ $('sumRemainder').textContent=number(remainder,2)+' g';
+ $('sumPackaging').textContent=currency(packTotal);
+ $('sumOther').textContent=currency(other);
+ $('sumTotalCost').textContent=currency(total);
+ $('sumPerProduct').textContent=products>0?currency(total/products):'N/A';
+ $('grossWeight').value=String(Number.isFinite(grossKg)?Number(grossKg.toFixed(4)):0);
+ $('errorBox').style.display='none';
+ return {rows,baseWeight,requiredWeight,ingredientCost,finished,products,remainder,packTotal,other,total,scale};
+}
+function sampleLoad(){
+ restoring=true; body.innerHTML=''; sample.forEach(addRow);
+ $('recipeName').value='Sample Spice Mix'; $('batchMultiplier').value='1'; $('targetGross').value=''; $('productWeight').value='100'; $('lossPercent').value='0'; $('packCost').value='0'; $('otherCost').value='0'; $('grossWeight').value='1';
+ $('recipeText').value='Coriander - 400 g\\nChilli - 250 g\\nCumin - 150 g\\nPepper - 100 g\\nTurmeric - 100 g';
+ $('recipeResults').innerHTML=''; restoring=false; calculate(); saveLocal();
+}
+function saveLocal(){
+ if(restoring)return;
+ try{
+  const data={recipeName:$('recipeName').value,batchMultiplier:$('batchMultiplier').value,targetGross:$('targetGross').value,productWeight:$('productWeight').value,lossPercent:$('lossPercent').value,packCost:$('packCost').value,otherCost:$('otherCost').value,grossWeight:$('grossWeight').value,rows:getRows().map(r=>({name:r.name,weight:r.base,rate:r.rate})),recipeText:$('recipeText').value};
+  localStorage.setItem('narayaniHomeFoodsCalculatorV1',JSON.stringify(data));
+ }catch(e){/* localStorage may be disabled; calculator still works in memory */}
+}
+function loadLocal(){
+ try{const raw=localStorage.getItem('narayaniHomeFoodsCalculatorV1');if(!raw)return false;const d=JSON.parse(raw);restoring=true;
+  ['recipeName','batchMultiplier','targetGross','productWeight','lossPercent','packCost','otherCost','grossWeight','recipeText'].forEach(k=>{if(d[k]!==undefined)$(k).value=d[k]});
+  body.innerHTML='';(d.rows&&d.rows.length?d.rows:sample).forEach(addRow);restoring=false;calculate();return true;
+ }catch(e){restoring=false;return false;}
+}
+function parseRecipeLine(line){
+ let s=line.trim();if(!s)return null;
+ s=s.replace(/^\s*(?:\d+[\).]|[-*•])\s*/,'');
+ // Supports "Ingredient - 250 g", "Ingredient: 250", or "250 g Ingredient".
+ let m=s.match(/^(.+?)\s*(?:[-:=–—]\s*)?(\d+(?:\.\d+)?)\s*(kg|kgs|kilograms?|g|gm|gms|grams?)?\s*$/i);
+ let name,qty,unit;
+ if(m && /[a-zA-Z]/.test(m[1])){name=m[1].replace(/[-:=–—]\s*$/,'').trim();qty=Number(m[2]);unit=(m[3]||'g').toLowerCase();}
+ else{
+   m=s.match(/^(\d+(?:\.\d+)?)\s*(kg|kgs|kilograms?|g|gm|gms|grams?)?\s+(.+)$/i);
+   if(!m)return null;qty=Number(m[1]);unit=(m[2]||'g').toLowerCase();name=m[3].trim();
+ }
+ if(!name||!Number.isFinite(qty)||qty<0)return null;
+ if(unit.startsWith('kg')||unit.startsWith('kilo'))qty*=1000;
+ return {name,grams:qty};
+}
+function norm(s){return s.toLowerCase().replace(/[^a-z0-9]/g,'').replace(/powder$/,'');}
+function compareRecipe(){
+ const text=$('recipeText').value;
+ const parsed=text.split(/\n/).map(parseRecipeLine).filter(Boolean);
+ if(!parsed.length){$('recipeResults').innerHTML='<div class="notice">No ingredient lines were recognized. Enter one ingredient per line, such as “Coriander - 400 g”.</div>';return;}
+ const rows=getRows();let totalWeight=0,totalCost=0,html='<div class="table-wrap" style="margin-top:12px"><table style="min-width:560px"><thead><tr><th>Recipe Ingredient</th><th>Quantity (g)</th><th>Matched Rate (₹/kg)</th><th>Estimated Cost</th><th>Match</th></tr></thead><tbody>';
+ parsed.forEach(p=>{
+   totalWeight+=p.grams;
+   let r=rows.find(x=>norm(x.name)===norm(p.name));
+   if(!r)r=rows.find(x=>norm(x.name).includes(norm(p.name))||norm(p.name).includes(norm(x.name)));
+   const cost=r?p.grams/1000*r.rate:0;if(r)totalCost+=cost;
+   html+=`<tr><td>${escapeHtml(p.name)}</td><td class="num">${number(p.grams,2)}</td><td class="num">${r?currency(r.rate):'—'}</td><td class="num">${r?currency(cost):'—'}</td><td>${r?'<span class="pill">Matched</span>':'<span style="color:#a83232;font-weight:700">Rate missing</span>'}</td></tr>`;
+ });
+ html+='</tbody></table></div>';
+ const unmatched=parsed.filter(p=>!rows.some(r=>norm(r.name)===norm(p.name)||norm(xSafe(r.name)).includes(norm(p.name))||norm(p.name).includes(norm(xSafe(r.name)))));
+ html+=`<div class="cards" style="margin-top:12px"><div class="metric"><div class="label">Inserted Recipe Weight</div><div class="value">${number(totalWeight,2)} g</div></div><div class="metric"><div class="label">Estimated Cost of Matched Ingredients</div><div class="value">${currency(totalCost)}</div></div><div class="metric"><div class="label">Ingredients with Missing Rates</div><div class="value">${unmatched.length}</div></div><div class="metric"><div class="label">Estimated Recipe Cost per 100 g</div><div class="value">${totalWeight>0?currency(totalCost/totalWeight*100):'N/A'}</div></div></div>`;
+ if(unmatched.length)html+='<div class="notice">Add matching ingredient names and their rates to the table above to price every ingredient. Unmatched ingredients are excluded from the estimated cost.</div>';
+ $('recipeResults').innerHTML=html;
+}
+function xSafe(s){return s||''}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function exportCSV(){
+ const result=calculate(),lines=[];
+ const csvRow=arr=>arr.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',');
+ lines.push(csvRow(['NARAYANI HOME FOODS - Ingredient Costing & Production']));
+ lines.push(csvRow(['Recipe Name',$('recipeName').value]));
+ lines.push(csvRow(['Scaling Mode',$('targetGross').value.trim()&&safeNum($('targetGross'))>0?'Target Gross Weight':'Batch Multiplier']));
+ lines.push(csvRow(['S.No.','Ingredients','Per KG Weight (g)','Required Measurement (g)','Per KG Rate (₹)','Required Ingredient Cost (₹)']));
+ result.rows.forEach((r,i)=>lines.push(csvRow([i+1,r.name,r.base,r.base*result.scale,r.rate,(r.base*result.scale/1000)*r.rate])));
+ lines.push(csvRow([]));lines.push(csvRow(['Summary','Value']));
+ const summaries=[['Total Ingredient Weight (g)',result.requiredWeight],['Total Ingredient Weight (kg)',result.requiredWeight/1000],['Total Ingredient Cost (₹)',result.ingredientCost],['Gross Weight (kg)',result.requiredWeight/1000],['Gross Ingredient Rate (₹)',result.ingredientCost*(result.requiredWeight/1000)],['Estimated Finished Weight (g)',result.finished],['Number of Complete Products',result.products],['Remaining Weight (g)',result.remainder],['Packaging Cost Total (₹)',result.packTotal],['Other Production Expenses (₹)',result.other],['Total Production Cost (₹)',result.total],['Production Cost per Product (₹)',result.products>0?result.total/result.products:'N/A']];
+ summaries.forEach(x=>lines.push(csvRow(x)));
+ const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='narayani_home_foods_costing.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+$('addRowBtn').addEventListener('click',()=>{addRow();saveLocal();});
+$('removeRowBtn').addEventListener('click',()=>{if(body.rows.length>1){body.deleteRow(body.rows.length-1);renumber();calculate();saveLocal();}else{showError('Keep at least one ingredient row in the table.');}});
+$('calculateBtn').addEventListener('click',()=>{calculate();saveLocal();});
+$('loadSampleBtn').addEventListener('click',sampleLoad);
+$('compareBtn').addEventListener('click',compareRecipe);
+$('clearRecipeBtn').addEventListener('click',()=>{$('recipeText').value='';$('recipeResults').innerHTML='';saveLocal();});
+$('printBtn').addEventListener('click',()=>window.print());
+$('csvBtn').addEventListener('click',exportCSV);
+$('resetBtn').addEventListener('click',()=>{if(window.confirm('Reset all fields and restore the sample recipe?'))sampleLoad();});
+function showError(message){$('errorBox').textContent=message;$('errorBox').style.display='block';}
+['recipeName','batchMultiplier','targetGross','productWeight','lossPercent','packCost','otherCost','grossWeight'].forEach(id=>$(id).addEventListener('input',()=>{if(['batchMultiplier','targetGross','productWeight','lossPercent','packCost','otherCost','grossWeight'].includes(id)){const v=Number($(id).value);if($(id).value.trim()!==''&&(!Number.isFinite(v)||v<0||(id==='lossPercent'&&v>100))){showError(id==='lossPercent'?'Processing loss must be between 0 and 100%.':'Please enter a valid non-negative number.');}else $('errorBox').style.display='none';}calculate();saveLocal();}));
+$('recipeText').addEventListener('input',saveLocal);
+$('recipeImage').addEventListener('change',function(){
+ const file=this.files&&this.files[0],img=$('imagePreview');if(!file){img.style.display='none';img.removeAttribute('src');return;}
+ if(!file.type.startsWith('image/')){showError('Please choose an image file.');return;}
+ const reader=new FileReader();reader.onload=e=>{img.src=e.target.result;img.style.display='block';};reader.readAsDataURL(file);
+});
+if(!loadLocal())sampleLoad();
+})();
+</script>
+</body>
+</html>
